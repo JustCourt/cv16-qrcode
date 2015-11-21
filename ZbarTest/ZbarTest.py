@@ -2,15 +2,16 @@ from PIL import Image
 import zbarlight
 import cv2
 
-file_path = 'sample2.png'
 
-with open(file_path, 'rb') as image_file:
-    image = Image.open(image_file)
-    image.load()
+def decodeQR(file_path):
+    """(str) -> str
+    Returns the string obtained by decoding the QR image located at file_path
+    """
 
-cvImage = cv2.imread(file_path)
-edges = cv2.Canny(cvImage,100,200)
-print(type(edges))
+    with open(file_path, 'rb') as image_file:
+        image = Image.open(image_file)
+        image.load()
 
-codes = zbarlight.scan_codes('qrcode', image)
-print('QR codes: %s' % codes)
+    codes = zbarlight.scan_codes('qrcode', image)
+    return str(codes)
+
